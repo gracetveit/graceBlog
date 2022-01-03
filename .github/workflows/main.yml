@@ -36,5 +36,5 @@ jobs:
           echo test, and deploy your project.
       - name: Prettier Action
         run: 
-          npm i prettier
+          npm i
           npx prettier -w .
