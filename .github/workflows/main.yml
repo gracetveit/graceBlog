@@ -38,3 +38,5 @@ jobs:
         # You may pin to the exact commit or the version.
         # uses: creyD/prettier_action@b305fc89f58683ee46b8ade3f0cb07f5d1d0c161
         uses: creyD/prettier_action@v4.1.1
+        with:
+          prettier_options: --write **/*.{ts,tsx} # optional, default is --write **/*.js
