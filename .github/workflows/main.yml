@@ -35,6 +35,6 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
       - name: Prettier Action
-        run: 
-          npm i
-          npx prettier -w .
+        # You may pin to the exact commit or the version.
+        # uses: creyD/prettier_action@b305fc89f58683ee46b8ade3f0cb07f5d1d0c161
+        uses: creyD/prettier_action@v4.1.1
