@@ -35,11 +35,6 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
       - name: Prettier Action
-        # You may pin to the exact commit or the version.
-        # uses: creyD/prettier_action@b305fc89f58683ee46b8ade3f0cb07f5d1d0c161
-        uses: creyD/prettier_action@v4.1.1
-        with:
-          # Commit message, will be ignored if used with same_commit
-          commit_message: Prettified Code!
-          # Extended commit message, will be ignored if used with same_commit
-          commit_description: Update the current commit instead of creating a new one
+        run: 
+          npm i prettier
+          npx prettier -w .
