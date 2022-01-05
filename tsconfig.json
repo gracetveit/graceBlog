@@ -4,7 +4,11 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "es5"
+    ],
+    "types": [
+      "cypress",
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -23,7 +27,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "cypress/integration/backend.spec.js"  ],
   "exclude": [
     "node_modules"
   ]
