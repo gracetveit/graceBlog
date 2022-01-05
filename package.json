@@ -8,7 +8,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress": "cypress open"
   },
   "author": "Grace Tveit",
   "license": "ISC",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "@types/node": "^17.0.7",
     "@types/react": "^17.0.38",
+    "cypress": "^9.2.0",
     "prettier": "^2.5.1",
     "typescript": "^4.5.4"
   }
