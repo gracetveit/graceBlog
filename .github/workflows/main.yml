@@ -40,3 +40,4 @@ jobs:
         uses: creyD/prettier_action@v4.1.1
         with:
           prettier_options: --write **/*.{ts,tsx} # optional, default is --write **/*.js
+          same_commit: true
