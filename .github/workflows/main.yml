@@ -33,7 +33,7 @@ jobs:
         ports:
           - 5432:5432
     env:
-      DATABASE_URL: postresql://postres:postgres@localhost:5432/graceBlog
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/graceBlog
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
