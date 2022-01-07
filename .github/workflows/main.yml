@@ -39,3 +39,4 @@ jobs:
         uses: cypress-io/github-action@v2.9.7
         with:
           start: npm run dev
+          env: DATABASE_URL=localhost/graceBlog
