@@ -19,7 +19,21 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/graceBlog
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -27,16 +41,17 @@ jobs:
         with:
           # Make sure the actual branch is checked out when running on pull requests
           ref: ${{ github.head_ref }}
-      - name: Prettier Action
-        # You may pin to the exact commit or the version.
-        # uses: creyD/prettier_action@b305fc89f58683ee46b8ade3f0cb07f5d1d0c161
-        uses: creyD/prettier_action@v4.1.1
-        with:
-          prettier_options: --write **/*.{ts,tsx} # optional, default is --write **/*.js
+      - name: Prisma Setup
+        run: npx prisma db push && npx prisma db seed
       - name: Cypress.io
         # You may pin to the exact commit or the version.
         # uses: cypress-io/github-action@f06537910911844bce953022f6d643a0f69fd73b
         uses: cypress-io/github-action@v2.9.7
         with:
           start: npm run dev
-          env: DATABASE_URL=localhost/graceBlog
+      - name: Prettier Action
+        # You may pin to the exact commit or the version.
+        # uses: creyD/prettier_action@b305fc89f58683ee46b8ade3f0cb07f5d1d0c161
+        uses: creyD/prettier_action@v4.1.1
+        with:
+          prettier_options: --write **/*.{ts,tsx} # optional, default is --write **/*.js
