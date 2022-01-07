@@ -40,3 +40,4 @@ jobs:
         with:
           start: npm run dev
           env: DATABASE_URL=localhost/graceBlog
+          build: npx prisma db seed
