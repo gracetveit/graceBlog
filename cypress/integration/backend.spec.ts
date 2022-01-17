@@ -19,6 +19,19 @@ describe('API testing', () => {
         });
       });
     });
+
+    it ("sends a 405 when encountering an unsupported method", () => {
+      cy.request({
+        method: 'HEAD', 
+        url: 'http://localhost:3000/api/authors',
+        failOnStatusCode: false
+      }).then(
+        (response: any) => {
+          expect(response.status).to.eq(405)
+        }
+      );
+    
+    })
   });
 });
 export {};
