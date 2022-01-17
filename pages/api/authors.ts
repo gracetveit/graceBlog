@@ -7,7 +7,10 @@ import prisma from '../../prisma/client';
 async function requestHandler (req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'GET':
-      getAll(req, res)
+      await getAll(req, res)
+      break;
+    case 'POST':
+      await post(req, res)
       break;
     default:
       res.status(405).send({error: 'Method Not Allowed'})
@@ -23,10 +26,16 @@ async function getAll (req: NextApiRequest, res: NextApiResponse) {
 };
 
 /**
- * PUT Request
+ * POST Request
  */
-// export default async (req: NextApiRequest, res: NextApiResponse) => {
-  
-// }
+async function post (req: NextApiRequest, res: NextApiResponse) {
+  const author = req.body.author
+  try {
+    const createdAuthor = await prisma.author.create({data: author})
+    res.status(201).send(createdAuthor)
+  } catch (error) {
+    res.status(500).send({error: error.message})
+  }
+}
 
 export default requestHandler

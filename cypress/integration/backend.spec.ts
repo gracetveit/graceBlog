@@ -20,17 +20,46 @@ describe('API testing', () => {
       });
     });
 
-    it ("sends a 405 when encountering an unsupported method", () => {
+    it('sends a 405 when encountering an unsupported method', () => {
       cy.request({
-        method: 'HEAD', 
+        method: 'HEAD',
         url: 'http://localhost:3000/api/authors',
+        failOnStatusCode: false,
+      }).then((response: any) => {
+        expect(response.status).to.eq(405);
+      });
+    });
+
+    it('creates a new author', () => {
+      cy.exec('npx prisma db seed');
+      cy.request({
+        method: 'POST',
+        url: 'http://localhost:3000/api/authors',
+        body: {
+          author: {
+            name: 'Test',
+          },
+        },
+      }).as('testAuthor');
+      cy.get('@testAuthor').should((response: any) => {
+        expect(response.status).to.eq(201);
+        expect(response.body.name).to.eq('Test');
+      });
+    });
+
+    it('Sends an error when creating duplicate authors', () => {
+      cy.request({
+        method: 'POST',
+        url: 'http://localhost:3000/api/authors',
+        body: {
+          author: {
+            name: 'Test'
+          }
+        },
         failOnStatusCode: false
-      }).then(
-        (response: any) => {
-          expect(response.status).to.eq(405)
-        }
-      );
-    
+      }).then((response: any) => {
+        expect(response.status).to.eq(500)
+      })
     })
   });
 });
