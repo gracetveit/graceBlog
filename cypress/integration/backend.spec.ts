@@ -53,14 +53,14 @@ describe('API testing', () => {
         url: 'http://localhost:3000/api/authors',
         body: {
           author: {
-            name: 'Test'
-          }
+            name: 'Test',
+          },
         },
-        failOnStatusCode: false
+        failOnStatusCode: false,
       }).then((response: any) => {
-        expect(response.status).to.eq(500)
-      })
-    })
+        expect(response.status).to.eq(500);
+      });
+    });
   });
 });
 export {};
