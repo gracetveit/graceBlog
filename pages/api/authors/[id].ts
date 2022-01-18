@@ -9,13 +9,10 @@ import prisma from '../../../prisma/client';
  */
 async function findUser(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { name } = req.query;
+    const { id } = req.query;
     const user = await prisma.author.findFirst({
       where: {
-        name: {
-          contains: name as string,
-          mode: 'insensitive',
-        },
+        id: id as string,
       },
     });
     if (!user) throw new Error('Author not found');
