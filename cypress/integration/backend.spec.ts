@@ -2,6 +2,13 @@ function resetDatabase() {
   cy.exec('npx prisma db seed');
 }
 
+function getId(func) {
+  cy.request('http://localhost:3000/api/authors').then((res) => {
+    const id = res.body[0].id
+    func(id)
+  }) 
+}
+
 describe('API testing', () => {
   it('returns hello world', () => {
     cy.request('http://localhost:3000/api').as('helloWorld');
@@ -46,11 +53,13 @@ describe('API testing', () => {
       });
 
       it('Returns a single author', () => {
-        cy.request('http://localhost:3000/api/authors/grace').as('author');
-        cy.get('@author').should((response: any) => {
-          expect(response.status).to.eq(200);
-          expect(response.body.name).to.eq('Grace');
-        });
+        getId((id) => {
+          cy.request(`http://localhost:3000/api/authors/${id}`).as('author');
+          cy.get('@author').should((response: any) => {
+            expect(response.status).to.eq(200);
+            expect(response.body.name).to.eq('Grace');
+          });
+        })
       });
     });
 
@@ -98,19 +107,22 @@ describe('API testing', () => {
     describe('PUT', () => {
       it('edits an existing author', () => {
         resetDatabase();
-        cy.request({
-          method: 'PUT',
-          url: 'http://localhost:3000/api/authors/grace',
-          body: {
-            author: {
-              name: 'Test',
+        getId((id) => {
+          cy.request({
+            method: 'PUT',
+            url: `http://localhost:3000/api/authors/${id}`,
+            body: {
+              author: {
+                name: 'Test',
+              },
             },
-          },
-        }).as('testAuthor');
-        cy.get('@testAuthor').should((response: any) => {
-          expect(response.status).to.eq(200);
-          expect(response.body.name).to.eq('Test');
-        });
+          }).as('testAuthor');
+          cy.get('@testAuthor').should((response: any) => {
+            expect(response.status).to.eq(200);
+            expect(response.body.name).to.eq('Test');
+          });
+
+        })
         resetDatabase();
       });
     });
