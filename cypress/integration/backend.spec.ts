@@ -4,9 +4,9 @@ function resetDatabase() {
 
 function getId(func) {
   cy.request('http://localhost:3000/api/authors').then((res) => {
-    const id = res.body[0].id
-    func(id)
-  }) 
+    const id = res.body[0].id;
+    func(id);
+  });
 }
 
 describe('API testing', () => {
@@ -59,7 +59,7 @@ describe('API testing', () => {
             expect(response.status).to.eq(200);
             expect(response.body.name).to.eq('Grace');
           });
-        })
+        });
       });
     });
 
@@ -121,8 +121,7 @@ describe('API testing', () => {
             expect(response.status).to.eq(200);
             expect(response.body.name).to.eq('Test');
           });
-
-        })
+        });
         resetDatabase();
       });
     });

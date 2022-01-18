@@ -12,7 +12,7 @@ async function findUser(req: NextApiRequest, res: NextApiResponse) {
     const { id } = req.query;
     const user = await prisma.author.findFirst({
       where: {
-        id: id as string
+        id: id as string,
       },
     });
     if (!user) throw new Error('Author not found');
