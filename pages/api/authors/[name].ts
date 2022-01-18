@@ -1,3 +1,4 @@
+import { Author } from '.prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '../../../prisma/client';
 
@@ -17,6 +18,8 @@ async function findUser(req: NextApiRequest, res: NextApiResponse) {
         },
       },
     });
+    if (!user) throw new Error('Author not found');
+
     return user;
   } catch (error) {
     res.status(404).send('Invalid Author Name');
@@ -24,16 +27,26 @@ async function findUser(req: NextApiRequest, res: NextApiResponse) {
 }
 
 /**
- * PUT handler
+ * GET handler
+ * @param author
  * @param req
  * @param res
  */
-async function put(user, req: NextApiRequest, res: NextApiResponse) {
+async function get(author: Author, res: NextApiResponse) {
+  res.send(author);
+}
+
+/**
+ * PUT handler
+ * @param author
+ * @param req
+ * @param res
+ */
+async function put(author: Author, req: NextApiRequest, res: NextApiResponse) {
   try {
-    console.log(user);
     const updatedUser = await prisma.author.update({
       where: {
-        name: user.name,
+        name: author.name,
       },
       data: req.body.author,
     });
@@ -44,10 +57,13 @@ async function put(user, req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function requestHandler(req: NextApiRequest, res: NextApiResponse) {
-  const user = await findUser(req, res);
+  const author = await findUser(req, res);
   switch (req.method) {
+    case 'GET':
+      get(author, res);
+      break;
     case 'PUT':
-      put(user, req, res);
+      put(author, req, res);
       break;
     default:
       res.status(405).send({ error: 'Method not Allowed' });
