@@ -1,9 +1,9 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import prisma from '../../../prisma/client'
+import { NextApiRequest, NextApiResponse } from 'next';
+import prisma from '../../../prisma/client';
 
 /**
  * Helper function that finds user in userbase
- * @param req 
+ * @param req
  * @returns A user if any, sends a 404 status if none found
  */
 async function findUser(req: NextApiRequest, res: NextApiResponse) {
@@ -13,45 +13,45 @@ async function findUser(req: NextApiRequest, res: NextApiResponse) {
       where: {
         name: {
           contains: name as string,
-          mode: 'insensitive'
-        }
-      }
-    })
-    return user
+          mode: 'insensitive',
+        },
+      },
+    });
+    return user;
   } catch (error) {
-    res.status(404).send('Invalid Author Name')
+    res.status(404).send('Invalid Author Name');
   }
 }
 
 /**
  * PUT handler
  * @param req
- * @param res 
+ * @param res
  */
-async function put (user, req: NextApiRequest, res: NextApiResponse) {
+async function put(user, req: NextApiRequest, res: NextApiResponse) {
   try {
-    console.log(user)
+    console.log(user);
     const updatedUser = await prisma.author.update({
       where: {
-        name: user.name
+        name: user.name,
       },
-      data: req.body.author
-    })
-    res.status(200).send(updatedUser)
+      data: req.body.author,
+    });
+    res.status(200).send(updatedUser);
   } catch (error) {
-    res.status(500).send({error: error.message})
+    res.status(500).send({ error: error.message });
   }
 }
 
-async function requestHandler (req: NextApiRequest, res: NextApiResponse) {
-  const user = await findUser(req, res)
+async function requestHandler(req: NextApiRequest, res: NextApiResponse) {
+  const user = await findUser(req, res);
   switch (req.method) {
     case 'PUT':
       put(user, req, res);
       break;
     default:
-      res.status(405).send({error: "Method not Allowed"})
+      res.status(405).send({ error: 'Method not Allowed' });
   }
 }
 
-export default requestHandler
+export default requestHandler;
