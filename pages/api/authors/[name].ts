@@ -18,8 +18,8 @@ async function findUser(req: NextApiRequest, res: NextApiResponse) {
         },
       },
     });
-    if (!user) throw new Error("Author not found");
-    
+    if (!user) throw new Error('Author not found');
+
     return user;
   } catch (error) {
     res.status(404).send('Invalid Author Name');
@@ -28,12 +28,12 @@ async function findUser(req: NextApiRequest, res: NextApiResponse) {
 
 /**
  * GET handler
- * @param author 
- * @param req 
- * @param res 
+ * @param author
+ * @param req
+ * @param res
  */
-async function get(author: Author, res: NextApiResponse){
-  res.send(author)
+async function get(author: Author, res: NextApiResponse) {
+  res.send(author);
 }
 
 /**
@@ -60,8 +60,8 @@ async function requestHandler(req: NextApiRequest, res: NextApiResponse) {
   const author = await findUser(req, res);
   switch (req.method) {
     case 'GET':
-      get(author, res)
-      break
+      get(author, res);
+      break;
     case 'PUT':
       put(author, req, res);
       break;
