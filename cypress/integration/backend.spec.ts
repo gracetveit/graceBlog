@@ -12,7 +12,7 @@ describe('API testing', () => {
   });
 
   describe('Authors', () => {
-    xit('returns a 404 status when looking for a user that does not exist', () => {
+    it('returns a 404 status when looking for a user that does not exist', () => {
       cy.request({
         method: 'GET',
         url: 'http://localhost:3000/api/authors/test',
@@ -45,7 +45,7 @@ describe('API testing', () => {
         });
       });
 
-      xit('Returns a single author', () => {
+      it('Returns a single author', () => {
         cy.request('http://localhost:3000/api/authors/grace').as('author');
         cy.get('@author').should((response: any) => {
           expect(response.status).to.eq(200);
