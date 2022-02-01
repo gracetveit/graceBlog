@@ -43,14 +43,12 @@ jobs:
           ref: ${{ github.head_ref }}
       - name: Prisma Setup
         run: npx prisma db push && npx prisma db seed
-      - name: run server
-        run: npm run dev
       - name: Cypress.io
         # You may pin to the exact commit or the version.
         # uses: cypress-io/github-action@f06537910911844bce953022f6d643a0f69fd73b
         uses: cypress-io/github-action@v2.9.7
-        # with:
-        # start: npm run dev
+        with:
+          start: npm run dev
       - name: Run Jest
         # You may pin to the exact commit or the version.
         # uses: stefanoeb/jest-action@f9bb23f509cde20ee9b494f0496d1d3323861cc4
