@@ -9,6 +9,14 @@ describe('Author API', () => {
     await prisma.author.deleteMany();
   });
 
+  it('sends a 404 when looking for a user that does not exist', async () => {
+    await request(app).get('authors/404').expect(404);
+  });
+
+  it('sends a 405 when encountering an unsupported method', async () => {
+    await request(app).head('/authors').expect(405);
+  });
+
   describe('GET', () => {
     it('Returns all authors', async () => {
       await prisma.author.create({ data: { name: 'test' } });
