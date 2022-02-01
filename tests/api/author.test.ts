@@ -38,6 +38,18 @@ describe('Author API', () => {
       await request(app).post('/authors').send(duplicate).expect(500);
     });
   });
+
+  describe('PUT', () => {
+    it('edits an existing author', async () => {
+      const author = { name: 'tst' };
+      const { id } = await prisma.author.create({ data: author });
+      const res = await request(app)
+        .put(`/authors/${id}`)
+        .send({ name: 'test' })
+        .expect(200);
+      expect(res.body.name).toBe('test');
+    });
+  });
 });
 
 export {};
