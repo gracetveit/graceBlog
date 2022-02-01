@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "dotenv -e .env.test -- jest ./tests/api",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "test:push": "dotenv -e .env.test -- npx prisma db push",
+    "test:server": "dotenv -e .env.test -- next dev"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
@@ -28,6 +30,7 @@
     "@types/node": "^17.0.7",
     "@types/react": "^17.0.38",
     "cypress": "^9.2.0",
+    "dotenv-cli": "^4.1.1",
     "jest": "^27.4.7",
     "jest-mock-extended": "^2.0.4",
     "prettier": "^2.5.1",
