@@ -52,11 +52,7 @@ jobs:
       - name: Run Jest
         # You may pin to the exact commit or the version.
         # uses: stefanoeb/jest-action@f9bb23f509cde20ee9b494f0496d1d3323861cc4
-        uses: stefanoeb/jest-action@1.0.4
-        with:
-          # Args to jest
-          start: npm run dev
-          jestArgs: ./tests # optional
+        run: npm dev & npm jest ./tests
       - name: Prettier Action
         # You may pin to the exact commit or the version.
         # uses: creyD/prettier_action@b305fc89f58683ee46b8ade3f0cb07f5d1d0c161
