@@ -31,6 +31,12 @@ describe('Author API', () => {
       const res = await request(app).post('/authors').send(author).expect(201);
       expect(res.body.name).toBe('POST test');
     });
+
+    it('sends an error when creating duplicate authors', async () => {
+      const duplicate = { name: 'duplicate test' };
+      await prisma.author.create({ data: duplicate });
+      await request(app).post('/authors').send(duplicate).expect(500);
+    });
   });
 });
 
