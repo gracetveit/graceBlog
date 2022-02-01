@@ -45,11 +45,12 @@ async function put(author: Author, req: NextApiRequest, res: NextApiResponse) {
       where: {
         name: author.name,
       },
-      data: req.body.author,
+      data: req.body,
     });
     res.status(200).send(updatedUser);
   } catch (error) {
     res.status(500).send({ error: error.message });
+    console.error(error);
   }
 }
 
@@ -57,10 +58,10 @@ async function requestHandler(req: NextApiRequest, res: NextApiResponse) {
   const author = await findUser(req, res);
   switch (req.method) {
     case 'GET':
-      get(author, res);
+      await get(author, res);
       break;
     case 'PUT':
-      put(author, req, res);
+      await put(author, req, res);
       break;
     default:
       res.status(405).send({ error: 'Method not Allowed' });
