@@ -12,7 +12,8 @@
   "dependencies": {
     "dotenv": "^16.0.0",
     "dotenv-cli": "^5.0.0",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "prisma": "^3.10.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
