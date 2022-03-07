@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { Action, Dispatch } from 'redux';
+import { Dispatch } from 'redux';
 import { action } from '.';
 
-type Blog = {
+export type Blog = {
   id: number;
   createdAt: Date;
   updatedAt: Date;
@@ -32,7 +32,7 @@ export const fetchBlogs = () => async (dispatch: Dispatch) => {
 };
 
 // Reducer
-export default (state: Blog[], action: action) => {
+export default (state: Blog[] = [], action: action) => {
   switch (action.type) {
     case SET_BLOGS:
       return action.blogs;
