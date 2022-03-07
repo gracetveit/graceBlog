@@ -1,14 +1,9 @@
 import express, { Request, Response } from 'express';
-import path from 'path';
-
-import apiRouter from './api';
-
 const router = express.Router();
 
 router.get('/', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../../public/index.html'));
+  console.log('hello world');
+  res.send('Hello World!');
 });
-
-router.use('/api', apiRouter);
 
 export default router;
