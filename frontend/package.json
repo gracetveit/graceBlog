@@ -19,6 +19,7 @@
     "react-router-dom": "^6.2.2"
   },
   "devDependencies": {
+    "@types/redux-logger": "^3.0.9",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
