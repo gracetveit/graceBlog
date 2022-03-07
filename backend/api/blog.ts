@@ -1,9 +1,21 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 const router = express.Router();
+import { Post } from '@prisma/client';
 
-router.get('/', (req: Request, res: Response) => {
-  console.log('hello world');
-  res.send('Hello World!');
-});
+import prisma from '../prisma/client';
+
+/**
+ * GET ALL blog posts
+ */
+const getAll = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const blogs: Post[] = await prisma.post.findMany();
+    res.send(blogs);
+  } catch (error) {
+    next(error);
+  }
+};
+
+router.get('/', getAll);
 
 export default router;

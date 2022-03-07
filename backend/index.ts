@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.static(publicPath));
 
 app.use('/api', apiRoutes);
-app.use('/', (req: Request, res: Response) => {
+app.use('/', async (req: Request, res: Response) => {
   res.sendFile(`${publicPath}/index.html`);
 });
 
