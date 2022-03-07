@@ -3,11 +3,20 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 
-const reducer = combineReducers({});
+import allBlogs from './allBlogs';
+
+const reducer = combineReducers({
+  allBlogs,
+});
 
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
 const store = createStore(reducer, middleware);
+
+export type action = {
+  type: string;
+  [key: string]: any;
+};
 
 export default store;
