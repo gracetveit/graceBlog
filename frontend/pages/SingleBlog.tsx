@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { RootState } from '../store';
 import { fetchBlog } from '../store/singleBlog';
 
-export default (props: any) => {
+export default () => {
   const dispatch = useDispatch();
   const blog = useSelector((state: RootState) => state.singleBlog);
 
