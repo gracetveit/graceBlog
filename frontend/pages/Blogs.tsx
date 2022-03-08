@@ -19,7 +19,9 @@ export default () => {
       <ul>
         {blogs.map((blog) => (
           <li key={blog.id}>
-            <Link to={`/blogs/${blog.slug}`}>{blog.title}</Link>
+            <Link to={`/blogs/${blog.updatedAt}/${blog.slug}`}>
+              {blog.title}
+            </Link>
           </li>
         ))}
       </ul>

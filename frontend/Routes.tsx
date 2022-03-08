@@ -12,7 +12,7 @@ export default () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/blogs" element={<Blogs />} />
-        <Route path="/blogs/:slug" element={<SingleBlog />} />
+        <Route path="/blogs/:date/:slug" element={<SingleBlog />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </div>

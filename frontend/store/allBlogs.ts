@@ -4,8 +4,8 @@ import { action } from '.';
 
 export type Blog = {
   id: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   title: string;
   content: string;
   slug: string;
