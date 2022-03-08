@@ -4,9 +4,11 @@ import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 
 import allBlogs, { Blog } from './allBlogs';
+import singleBlog from './singleBlog';
 
 const reducer = combineReducers({
   allBlogs,
+  singleBlog,
 });
 
 const middleware = composeWithDevTools(
@@ -21,6 +23,7 @@ export type action = {
 
 export type RootState = {
   allBlogs: Blog[];
+  singleBlog: Blog;
 };
 
 export default store;

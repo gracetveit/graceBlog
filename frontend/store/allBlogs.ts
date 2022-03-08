@@ -8,6 +8,7 @@ export type Blog = {
   updatedAt: Date;
   title: string;
   content: string;
+  slug: string;
 };
 
 // Constants

@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router';
 
 import Home from './pages/Home';
 import Blogs from './pages/Blogs';
+import SingleBlog from './pages/SingleBlog';
+import Contact from './pages/Contact';
 
 export default () => {
   return (
@@ -10,6 +12,8 @@ export default () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blogs/:slug" element={<SingleBlog />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </div>
   );
