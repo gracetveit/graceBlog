@@ -52,7 +52,6 @@ const getMostRecent = async (
       },
     });
     if (blog) {
-      console.log(blog);
       res.send(blog);
     } else {
       throw new Error('No Blog');

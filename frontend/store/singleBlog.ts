@@ -25,9 +25,7 @@ export const fetchBlog = (slug: string) => async (dispatch: Dispatch) => {
 
 export const fetchMostRecent = () => async (dispatch: Dispatch) => {
   try {
-    console.log('test');
     const { data } = await axios.get('/api/blogs/most-recent');
-    console.log(data);
     dispatch(setBlog(data));
   } catch (error) {
     console.error(error);
