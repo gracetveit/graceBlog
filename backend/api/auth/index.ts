@@ -1,8 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-const router = express.Router();
-
 export const validate = async (
   req: Request,
   res: Response,
@@ -42,7 +40,3 @@ export const generateToken = async (
     next(error);
   }
 };
-
-router.post('/login', generateToken);
-
-export default router;
