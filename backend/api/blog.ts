@@ -104,7 +104,7 @@ router.get('/most-recent', getMostRecent);
 router.get('/:slug', getFromSlug);
 
 router.post('/blog', validate, createBlog);
-router.put('/blog/:id', validate, createBlog);
+router.put('/blog/:id', validate, updateBlog);
 router.delete('/blog/:id', validate, deleteBlog);
 
 export default router;
