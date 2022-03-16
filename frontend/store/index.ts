@@ -5,10 +5,12 @@ import { createLogger } from 'redux-logger';
 
 import allBlogs, { Blog } from './allBlogs';
 import singleBlog from './singleBlog';
+import auth from './auth';
 
 const reducer = combineReducers({
   allBlogs,
   singleBlog,
+  auth,
 });
 
 const middleware = composeWithDevTools(
@@ -24,6 +26,7 @@ export type action = {
 export type RootState = {
   allBlogs: Blog[];
   singleBlog: Blog;
+  auth: boolean;
 };
 
 export default store;
