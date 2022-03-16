@@ -16,6 +16,7 @@ export type Blog = {
 const SET_BLOGS = 'SET_BLOGS';
 const ADD_BLOG = 'ADD_BLOG';
 const REPLACE_BLOG = 'REPLACE_BLOG';
+const REMOVE_BLOG = 'REMOVE_BLOG';
 
 // Actions
 
@@ -40,6 +41,15 @@ const replaceBlog = (blog: Blog): action => {
   };
 };
 
+const removeBlog = (id: number): action => {
+  return {
+    type: REMOVE_BLOG,
+    id,
+  };
+};
+
+// Thunks
+
 export const fetchBlogs = () => async (dispatch: Dispatch) => {
   try {
     const { data } = await axios.get('/api/blogs');
@@ -52,8 +62,8 @@ export const fetchBlogs = () => async (dispatch: Dispatch) => {
 export const createBlog = (blog: Blog) => async (dispatch: Dispatch) => {
   try {
     const { data } = await axios.post('/api/blogs', {
-      Headers: { authorization: Cookies.get('token') },
-      blog,
+      headers: { authorization: Cookies.get('token') || '' },
+      data: blog,
     });
     dispatch(addBlog(data));
   } catch (error) {
@@ -64,10 +74,25 @@ export const createBlog = (blog: Blog) => async (dispatch: Dispatch) => {
 export const updateBlog = (blog: Blog) => async (dispatch: Dispatch) => {
   try {
     const { data } = await axios.put(`/api/blogs/${blog.id}`, {
-      Headers: { authorization: Cookies.get('token') },
-      blog,
+      headers: { authorization: Cookies.get('token') || '' },
+      data: blog,
     });
     dispatch(replaceBlog(data));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteBlog = (id: number) => async (dispatch: Dispatch) => {
+  try {
+    const { status } = await axios.delete(`/api/blogs/${id}`, {
+      headers: { authorization: Cookies.get('token') || '' },
+    });
+    if (status === 204) {
+      dispatch(removeBlog(id));
+    } else {
+      throw new Error('server-side error');
+    }
   } catch (error) {
     console.error(error);
   }
@@ -84,6 +109,14 @@ export default (state: Blog[] = [], action: action) => {
       return state.reduce((acc, cur) => {
         if (cur.id === action.blog.id) {
           return [...acc, action.blog];
+        } else {
+          return [...acc, cur];
+        }
+      }, new Array());
+    case REMOVE_BLOG:
+      return state.reduce((acc, cur) => {
+        if (cur.id === action.id) {
+          return acc;
         } else {
           return [...acc, cur];
         }
