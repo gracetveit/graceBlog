@@ -82,8 +82,8 @@ const updateBlog = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = parseInt(req.params.id);
     const blog: Post = req.body;
-    await prisma.post.update({ where: { id }, data: blog });
-    res.sendStatus(201);
+    const updatedBlog = await prisma.post.update({ where: { id }, data: blog });
+    res.send(updatedBlog);
   } catch (error) {
     next(error);
   }
