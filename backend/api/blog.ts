@@ -103,8 +103,8 @@ router.get('/', getAll);
 router.get('/most-recent', getMostRecent);
 router.get('/:slug', getFromSlug);
 
-router.post('/blog', validate, createBlog);
-router.put('/blog/:id', validate, updateBlog);
-router.delete('/blog/:id', validate, deleteBlog);
+router.post('/', validate, createBlog);
+router.put('/:id', validate, updateBlog);
+router.delete('/:id', validate, deleteBlog);
 
 export default router;
