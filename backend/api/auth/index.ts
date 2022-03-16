@@ -27,7 +27,7 @@ export const generateToken = async (
   next: NextFunction
 ) => {
   try {
-    const enteredPassword: string = req.body.password;
+    const enteredPassword: string = req.body;
     const secret = process.env.SECRET || '';
     const password = process.env.PASSWORD || '';
     if (enteredPassword === password) {
