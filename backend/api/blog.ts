@@ -65,14 +65,14 @@ const getMostRecent = async (
 const createBlog = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const blog: Partial<Post> = req.body;
-    await prisma.post.create({
+    const createdBlog = await prisma.post.create({
       data: {
         title: blog.title!,
         content: blog.content!,
         slug: encodeURI(blog.title!),
       },
     });
-    res.sendStatus(201);
+    res.send(createdBlog);
   } catch (error) {
     next(error);
   }
