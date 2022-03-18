@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Blogs from './pages/Blogs';
 import SingleBlog from './pages/SingleBlog';
 import Contact from './pages/Contact';
+import Login from './pages/admin/login';
 
 export default () => {
   return (
@@ -14,6 +15,7 @@ export default () => {
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/blogs/:date/:slug" element={<SingleBlog />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/admin" element={<Login />} />
       </Routes>
     </div>
   );
