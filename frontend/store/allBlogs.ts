@@ -59,34 +59,48 @@ export const fetchBlogs = () => async (dispatch: Dispatch) => {
   }
 };
 
-export const createBlog = (blog: Blog) => async (dispatch: Dispatch) => {
-  try {
-    const { data } = await axios.post('/api/blogs', {
-      headers: { authorization: Cookies.get('token') || '' },
-      data: blog,
-    });
-    dispatch(addBlog(data));
-  } catch (error) {
-    console.error(error);
-  }
-};
+export const createBlog =
+  (blog: Partial<Blog>) => async (dispatch: Dispatch) => {
+    try {
+      const { data } = await axios({
+        method: 'POST',
+        url: '/api/blogs',
+        data: blog,
+        headers: {
+          Authorization: Cookies.get('token') || '',
+        },
+      });
+      dispatch(addBlog(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-export const updateBlog = (blog: Blog) => async (dispatch: Dispatch) => {
-  try {
-    const { data } = await axios.put(`/api/blogs/${blog.id}`, {
-      headers: { authorization: Cookies.get('token') || '' },
-      data: blog,
-    });
-    dispatch(replaceBlog(data));
-  } catch (error) {
-    console.error(error);
-  }
-};
+export const updateBlog =
+  (blog: Partial<Blog>) => async (dispatch: Dispatch) => {
+    try {
+      const { data } = await axios({
+        method: 'PUT',
+        url: `/api/blogs/${blog.id}`,
+        data: blog,
+        headers: {
+          Authorization: Cookies.get('token') || '',
+        },
+      });
+      dispatch(replaceBlog(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 export const deleteBlog = (id: number) => async (dispatch: Dispatch) => {
   try {
-    const { status } = await axios.delete(`/api/blogs/${id}`, {
-      headers: { authorization: Cookies.get('token') || '' },
+    const { status } = await axios({
+      method: 'DELETE',
+      url: `/api/blogs/${id}`,
+      headers: {
+        Authorization: Cookies.get('token') || '',
+      },
     });
     if (status === 204) {
       dispatch(removeBlog(id));
