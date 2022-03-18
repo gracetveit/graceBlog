@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { logIn } from '../../store/auth';
 
 export default () => {
   const dispatch = useDispatch();
   const [auth, setPassword] = useState({ password: '' });
+  const navigate = useNavigate();
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
     dispatch(logIn(auth.password));
+    navigate('/');
   };
 
   const handleChange = (event: any) => {

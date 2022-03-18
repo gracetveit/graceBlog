@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import Blogs from './pages/Blogs';
 import SingleBlog from './pages/SingleBlog';
 import Contact from './pages/Contact';
-import Login from './pages/admin/login';
+import Login from './pages/admin/Login';
 
 export default () => {
   return (
