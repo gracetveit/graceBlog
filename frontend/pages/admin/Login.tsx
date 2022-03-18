@@ -4,16 +4,16 @@ import { logIn } from '../../store/auth';
 
 export default () => {
   const dispatch = useDispatch();
-  const [password, setPassword] = useState({ password: '' });
+  const [auth, setPassword] = useState({ password: '' });
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    dispatch(logIn('test'));
+    dispatch(logIn(auth.password));
   };
 
   const handleChange = (event: any) => {
-    const newPassword = { [event.target.name]: event.target.value };
-    setPassword({ ...password, ...newPassword });
+    const newAuth = { [event.target.name]: event.target.value };
+    setPassword({ ...auth, ...newAuth });
   };
 
   return (
