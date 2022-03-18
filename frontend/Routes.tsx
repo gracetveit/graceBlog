@@ -6,6 +6,7 @@ import Blogs from './pages/Blogs';
 import SingleBlog from './pages/SingleBlog';
 import Contact from './pages/Contact';
 import Login from './pages/admin/Login';
+import BlogForm from './pages/admin/BlogForm';
 
 export default () => {
   return (
@@ -16,6 +17,7 @@ export default () => {
         <Route path="/blogs/:date/:slug" element={<SingleBlog />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin" element={<Login />} />
+        <Route path="/admin/create" element={<BlogForm method="POST" />} />
       </Routes>
     </div>
   );
