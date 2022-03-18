@@ -4,13 +4,19 @@ import { Link } from 'react-router-dom';
 
 import { RootState } from '../store';
 import { fetchBlogs } from '../store/allBlogs';
+import BlogListItem from '../components/BlogListItem';
+import { isLoggedIn } from '../store/auth';
 
 export default () => {
   const dispatch = useDispatch();
-  const blogs = useSelector((state: RootState) => state.allBlogs);
+  const { blogs, auth } = useSelector((state: RootState) => ({
+    blogs: state.allBlogs,
+    auth: state.auth,
+  }));
 
   useEffect(() => {
     dispatch(fetchBlogs());
+    dispatch(isLoggedIn());
   }, [dispatch]);
 
   return (
@@ -19,9 +25,7 @@ export default () => {
       <ul>
         {blogs.map((blog) => (
           <li key={blog.id}>
-            <Link to={`/blogs/${blog.updatedAt}/${blog.slug}`}>
-              {blog.title}
-            </Link>
+            <BlogListItem blog={blog} auth={auth} />
           </li>
         ))}
       </ul>
