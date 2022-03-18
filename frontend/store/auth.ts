@@ -30,9 +30,9 @@ export const isLoggedIn = () => (dispatch: Dispatch) => {
 
 export const logIn = (password: string) => async (dispatch: Dispatch) => {
   try {
-    const { data } = await axios.post('/api/login', password);
+    const { data } = await axios.post('/api/login', { password });
     Cookies.set('token', data);
-    dispatch(setStatus(false));
+    dispatch(setStatus(true));
   } catch (error) {
     console.error(error);
   }
