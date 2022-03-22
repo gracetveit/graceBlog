@@ -5,6 +5,7 @@ import BlogForm from '../../components/BlogForm';
 import { RootState } from '../../store';
 import { Blog, createBlog, updateBlog } from '../../store/allBlogs';
 import { fetchBlog } from '../../store/singleBlog';
+import { Title } from 'react-head';
 
 export default () => {
   const dispatch = useDispatch();
@@ -23,10 +24,13 @@ export default () => {
     : (data: Blog) => dispatch(createBlog(data));
 
   return (
-    <BlogForm
-      action={action}
-      oldBlog={slug ? blog : undefined}
-      nav={navigate}
-    />
+    <div>
+      <Title>{slug ? `Updating ${blog.title}` : 'New Blog'}</Title>
+      <BlogForm
+        action={action}
+        oldBlog={slug ? blog : undefined}
+        nav={navigate}
+      />
+    </div>
   );
 };

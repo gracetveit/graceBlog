@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logIn } from '../../store/auth';
+import { Title } from 'react-head';
 
 export default () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export default () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <Title>Login</Title>
       <label htmlFor="username">Username</label>
       <input
         onChange={handleChange}

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Title } from 'react-head';
 
 import { RootState } from '../store';
 import { fetchBlogs } from '../store/allBlogs';
@@ -21,6 +22,7 @@ export default () => {
 
   return (
     <div>
+      <Title>Blogs</Title>
       <h1>Blogs Page</h1>
       <ul>
         {blogs.map((blog) => (
