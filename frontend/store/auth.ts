@@ -28,15 +28,17 @@ export const isLoggedIn = () => (dispatch: Dispatch) => {
   }
 };
 
-export const logIn = (password: string) => async (dispatch: Dispatch) => {
-  try {
-    const { data } = await axios.post('/api/login', { password });
-    Cookies.set('token', data);
-    dispatch(setStatus(true));
-  } catch (error) {
-    console.error(error);
-  }
-};
+export const logIn =
+  (user: { username: string; password: string }) =>
+  async (dispatch: Dispatch) => {
+    try {
+      const { data } = await axios.post('/api/login', { ...user });
+      Cookies.set('token', data);
+      dispatch(setStatus(true));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 export const logOut = () => (dispatch: Dispatch) => {
   try {

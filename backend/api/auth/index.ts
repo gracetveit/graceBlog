@@ -12,10 +12,10 @@ export const validate = async (
 ) => {
   try {
     const token = req.headers.authorization || '';
-    const secret = process.env.SECRET || '';
-    const password = process.env.PASSWORD || '';
-    const test = jwt.verify(token, secret);
-    if (test === password) {
+    const secret = verifyEnvironemntVariable(process.env.SECRET, 'SECRET');
+    const user = await prisma.user.findFirst();
+    const test = jwt.verify(token, secret) === jwt.verify(user!.token!, secret);
+    if (test) {
       next();
     } else {
       throw new Error('Unauthorized');
@@ -31,11 +31,13 @@ export const generateToken = async (
   next: NextFunction
 ) => {
   try {
-    const enteredPassword: string = req.body.password;
-    const secret = process.env.SECRET || '';
-    const password = process.env.PASSWORD || '';
-    if (enteredPassword === password) {
-      const token = jwt.sign(password, secret);
+    const clientUser: { username: string; password: string } = req.body;
+    const secret = verifyEnvironemntVariable(process.env.SECRET, 'SECRET');
+    const dbUser = await prisma.user.findFirst();
+    const passMatch = await argon2.verify(dbUser!.pwHash, clientUser.password);
+    if (dbUser?.username === clientUser.username && passMatch) {
+      const token = jwt.sign(clientUser.username, secret);
+      await prisma.user.update({ where: { id: dbUser.id }, data: { token } });
       res.send(token);
     } else {
       throw new Error('Incorrect Password');

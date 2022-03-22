@@ -5,12 +5,12 @@ import { logIn } from '../../store/auth';
 
 export default () => {
   const dispatch = useDispatch();
-  const [auth, setPassword] = useState({ password: '' });
+  const [auth, setPassword] = useState({ username: '', password: '' });
   const navigate = useNavigate();
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    dispatch(logIn(auth.password));
+    dispatch(logIn(auth));
     navigate('/');
   };
 
@@ -21,6 +21,14 @@ export default () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <label htmlFor="username">Username</label>
+      <input
+        onChange={handleChange}
+        type="text"
+        name="username"
+        id="username"
+      />
+
       <label htmlFor="password">Password</label>
       <input
         onChange={handleChange}
