@@ -30,7 +30,7 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
 const getFromSlug = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const blog = await prisma.post.findUnique({
-      where: { slug: req.params.slug },
+      where: { slug: encodeURI(req.params.slug) },
     });
     res.send(blog);
   } catch (error) {
