@@ -16,6 +16,7 @@
     "dotenv-cli": "^5.0.0",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
+    "nodemailer": "^6.7.3",
     "prisma": "^3.10.0"
   },
   "devDependencies": {
