@@ -4,17 +4,18 @@ import { RootState } from '../store';
 import { fetchMostRecent } from '../store/singleBlog';
 
 export default () => {
-  const dispatch = useDispatch();
-  const blog = useSelector((state: RootState) => state.singleBlog);
+  // const dispatch = useDispatch();
+  // const blog = useSelector((state: RootState) => state.singleBlog);
 
-  useEffect(() => {
-    dispatch(fetchMostRecent());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchMostRecent());
+  // }, [dispatch]);
 
   return (
     <div>
-      <h1>{blog.title}</h1>
-      <p>{blog.content}</p>
+      <h1>Welcome!</h1>
+      <p>Hello! My name is Grace Tveit; Software Engineer.</p>
+      <p>Welcome to my custom-built blog!</p>
     </div>
   );
 };
