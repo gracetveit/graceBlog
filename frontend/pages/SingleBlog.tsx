@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { RootState } from '../store';
 import { fetchBlog } from '../store/singleBlog';
+import ReactMarkdown from 'react-markdown';
 
 export default () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ export default () => {
   return (
     <div>
       <h1>{blog.title}</h1>
-      <p>{blog.content}</p>
+      <ReactMarkdown>{blog.content}</ReactMarkdown>
     </div>
   );
 };
