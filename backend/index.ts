@@ -11,6 +11,7 @@ const url = process.env.server || 'localhost';
 const publicPath = path.join(process.cwd(), '../public');
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(publicPath));
 
 app.use('/api', apiRoutes);
