@@ -12,7 +12,7 @@ export default ({ blog, auth = false }: { blog: Blog; auth?: boolean }) => {
 
   return (
     <div>
-      <Link to={`/blogs/${blog.updatedAt}/${blog.slug}`}>
+      <Link to={`/blogs/${blog.updatedAt.split('T')[0]}/${blog.slug}`}>
         <h2>{blog.title}</h2>
       </Link>
       {auth ? <button onClick={handleDelete}>delete</button> : <></>}
