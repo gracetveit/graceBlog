@@ -1,0 +1,20 @@
+{
+  "name": "graceblog",
+  "version": "1.0.0",
+  "description": "## Description",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gracetveit/graceBlog.git"
+  },
+  "keywords": [],
+  "author": "Grace Tveit",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gracetveit/graceBlog/issues"
+  },
+  "homepage": "https://github.com/gracetveit/graceBlog#readme"
+}
