@@ -1,9 +1,13 @@
 import Layout from "../components/Layout";
+import store from "../store";
+import { Provider } from "react-redux";
 
 export default ({ Component, pageProps }) => {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <Provider store={store}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </Provider>
   );
 };
