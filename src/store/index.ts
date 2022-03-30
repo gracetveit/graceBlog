@@ -4,16 +4,15 @@ import thunkMiddleware from "redux-thunk";
 import { createLogger } from "redux-logger";
 
 import allBlogs from "./allBlogs";
+import singleBlog from "./singleBlog";
 
-const reducers = combineReducers({ allBlogs });
+const reducers = combineReducers({ allBlogs, singleBlog });
 
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
 
 const store = createStore(reducers, middleware);
-
-console.log(store.getState());
 
 export type RootState = ReturnType<typeof store.getState>;
 

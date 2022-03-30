@@ -12,17 +12,25 @@ const setBlogs = (blogs) => ({
 
 import { Dispatch } from "react";
 
+interface clientBlog extends Blog {
+  date: string;
+}
+
 // Thunks
 export const fetchBlogs = () => async (dispatch) => {
   try {
     const { data } = await axios.get("/api/blogs");
-    dispatch(setBlogs(data));
+    const blogs = data.map((blog: Blog) => ({
+      ...blog,
+      date: (blog.createdAt as unknown as string).split("T")[0],
+    }));
+    dispatch(setBlogs(blogs));
   } catch (error) {
     console.error(error);
   }
 };
 // Reducer
-export default (state: Blog[] = [], action): Blog[] => {
+export default (state: clientBlog[] = [], action): clientBlog[] => {
   switch (action.type) {
     case SET_BLOGS:
       return action.blogs;
