@@ -26,7 +26,10 @@ export default () => {
     setAnchorElNav(null);
   };
 
-  const pages = [{ name: "Home", route: "/" }];
+  const pages = [
+    { name: "Home", route: "/" },
+    { name: "Blogs", route: "/blogs" },
+  ];
 
   return (
     <AppBar position="static">
