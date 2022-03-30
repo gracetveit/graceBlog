@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
@@ -14,7 +15,9 @@ export default () => {
   return (
     <ul>
       {blogs.map((blog) => (
-        <li key={blog.title}>{blog.title}</li>
+        <li key={blog.title}>
+          <Link href={`/blogs/${blog.date}/${blog.slug}`}>{blog.title}</Link>
+        </li>
       ))}
     </ul>
   );
