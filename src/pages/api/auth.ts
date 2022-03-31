@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from ".prisma/client";
 import * as argon2 from "argon2";
 import jwt from "jsonwebtoken";
@@ -30,7 +30,7 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-const logout = async (req: NextApiRequest, res: NextApiResponse) => {
+const logout = async (res: NextApiResponse) => {
   try {
     await db.user.updateMany({
       data: {
@@ -44,12 +44,41 @@ const logout = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+export const verify = async (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  next: NextApiHandler
+) => {
+  try {
+    const { authorization } = req.headers;
+    // const authorization = req.getHeader("authorization");
+    const user = await db.user.findFirst();
+    jwt.verify(authorization, process.env.SECRET);
+    if (user.token !== authorization) {
+      throw new Error("Unverified");
+    }
+    next(req, res);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+};
+
+const verifyRoute = (req: NextApiRequest, res: NextApiResponse) => {
+  res.json(true);
+};
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
+    case "GET":
+      await verify(req, res, verifyRoute);
+      break;
     case "POST":
       await login(req, res);
+      break;
     case "DELETE":
-      await logout(req, res);
+      await logout(res);
+      break;
     default:
       res.status(405).end();
   }
