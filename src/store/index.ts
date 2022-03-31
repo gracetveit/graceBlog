@@ -5,8 +5,9 @@ import { createLogger } from "redux-logger";
 
 import allBlogs from "./allBlogs";
 import singleBlog from "./singleBlog";
+import auth from "./auth";
 
-const reducers = combineReducers({ allBlogs, singleBlog });
+const reducers = combineReducers({ allBlogs, singleBlog, auth });
 
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
