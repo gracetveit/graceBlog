@@ -18,6 +18,7 @@ const getSingle = async (req: NextApiRequest, res: NextApiResponse) => {
         },
         slug,
       },
+      rejectOnNotFound: true,
     });
     res.json(blog);
   } catch (error) {
