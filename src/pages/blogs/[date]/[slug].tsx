@@ -16,6 +16,12 @@ export default () => {
     }
   }, [router]);
 
+  useEffect(() => {
+    if ("message" in blog) {
+      router.push("/404");
+    }
+  }, [blog]);
+
   return (
     <div>
       <p>{"content" in blog ? blog.title : ""}</p>

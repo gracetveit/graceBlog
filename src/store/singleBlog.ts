@@ -15,6 +15,7 @@ export const fetchBlog = (date, slug) => async (dispatch) => {
     dispatch(setBlog(data));
   } catch (error) {
     console.error(error);
+    dispatch(setBlog(error));
   }
 };
 
