@@ -19,3 +19,10 @@ model Blog {
 
   @@id([slug, createdAt])
 }
+
+model User {
+  username String @unique
+  pwHash String 
+  email String @unique
+  token String? @unique
+}
