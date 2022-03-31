@@ -4,8 +4,9 @@ import * as argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 
+const db = new PrismaClient();
+
 const login = async (req: NextApiRequest, res: NextApiResponse) => {
-  const db = new PrismaClient();
   const { username, password } = req.body;
   try {
     const user = await db.user.findUnique({
@@ -29,11 +30,27 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+const logout = async (req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    await db.user.updateMany({
+      data: {
+        token: null,
+      },
+    });
+    res.status(204).end();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+};
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "POST":
       await login(req, res);
+    case "DELETE":
+      await logout(req, res);
     default:
-      res.status(405);
+      res.status(405).end();
   }
 };
