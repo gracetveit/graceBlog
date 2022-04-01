@@ -18,7 +18,10 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
       throw new Error("Incorrect Password");
     }
 
-    const token = jwt.sign(user, process.env.SECRET);
+    const token = jwt.sign(
+      { username, pwHash: user.pwHash, loginDate: Date.now() },
+      process.env.SECRET
+    );
     await db.user.update({
       where: { username },
       data: { token },
