@@ -31,6 +31,11 @@ export const login =
 
 export const verify = () => async (dispatch) => {
   try {
+    const token = Cookies.get("TOKEN");
+    if (!token) {
+      dispatch(setStatus(false));
+      return;
+    }
     const { data } = await axios({
       method: "get",
       url: "/api/auth",
