@@ -51,6 +51,9 @@ export const verify = async (
 ) => {
   try {
     const { authorization } = req.headers;
+    if (authorization === "undefined") {
+      throw new Error("No Token");
+    }
     // const authorization = req.getHeader("authorization");
     const user = await db.user.findFirst();
     jwt.verify(authorization, process.env.SECRET);
