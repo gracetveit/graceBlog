@@ -25,7 +25,7 @@ export const login =
       dispatch(setStatus(true));
     } catch (error) {
       console.error(error);
-      dispatch(setStatus(false));
+      dispatch(logout());
     }
   };
 
@@ -46,12 +46,13 @@ export const verify = () => async (dispatch) => {
     dispatch(setStatus(data));
   } catch (error) {
     console.error(error);
-    dispatch(setStatus(false));
+    dispatch(logout());
   }
 };
 
 export const logout = () => async (dispatch) => {
   try {
+    Cookies.remove("TOKEN");
     await axios.delete("/api/auth");
     dispatch(setStatus(false));
   } catch (error) {
