@@ -56,7 +56,10 @@ export const logout = () => async (dispatch) => {
 };
 
 // Reducer
-export default (state: Boolean = false, action): Boolean => {
+export default (
+  state: Boolean | string = "Pending",
+  action
+): Boolean | string => {
   switch (action.type) {
     case SET_STATUS:
       return action.status;
