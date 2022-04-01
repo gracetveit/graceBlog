@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { Blog } from ".prisma/client";
+import Cookies from "js-cookie";
 // Constants
 const SET_BLOG = "SET_BLOG";
 // Actions
@@ -12,6 +13,23 @@ const setBlog = (blog) => ({
 export const fetchBlog = (date, slug) => async (dispatch) => {
   try {
     const { data } = await axios.get(`/api/blogs/${date}/${slug}`);
+    dispatch(setBlog(data));
+  } catch (error) {
+    console.error(error);
+    dispatch(setBlog(error));
+  }
+};
+
+export const CreateBlog = (blog: Blog) => async (dispatch) => {
+  try {
+    const { data } = await axios({
+      method: "POST",
+      url: "/api/blogs",
+      data: blog,
+      headers: {
+        authorization: Cookies.get("TOKEN"),
+      },
+    });
     dispatch(setBlog(data));
   } catch (error) {
     console.error(error);
