@@ -1,6 +1,7 @@
 import { CircularProgress } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import AdminView from "../../components/AdminView";
 import Login from "../../components/Login";
 import { RootState } from "../../store";
 import { verify } from "../../store/auth";
@@ -15,7 +16,7 @@ export default () => {
     }
   }, [dispatch]);
 
-  const hasLoaded = isLoggedIn ? <h1>Logged In!</h1> : <Login />;
+  const hasLoaded = isLoggedIn ? <AdminView /> : <Login />;
 
   return (
     <div>
