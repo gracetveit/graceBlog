@@ -18,7 +18,7 @@ export default () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     dispatch(login(user));
-    router.reload();
+    // router.reload();
   };
 
   return (
