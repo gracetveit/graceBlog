@@ -18,13 +18,15 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
       throw new Error("Incorrect Password");
     }
 
+    const lastLogin = new Date(Date.now());
+
     const token = jwt.sign(
-      { username, pwHash: user.pwHash, loginDate: Date.now() },
+      { username, pwHash: user.pwHash, lastLogin },
       process.env.SECRET
     );
     await db.user.update({
       where: { username },
-      data: { token },
+      data: { lastLogin },
     });
     res.json(token);
   } catch (error) {
@@ -37,7 +39,7 @@ const logout = async (res: NextApiResponse) => {
   try {
     await db.user.updateMany({
       data: {
-        token: null,
+        lastLogin: null,
       },
     });
     res.status(204).end();
@@ -54,19 +56,26 @@ export const verify = async (
 ) => {
   try {
     const { authorization } = req.headers;
-    if (authorization === "undefined") {
+    if (authorization === "undefined" || !authorization) {
       throw new Error("No Token");
     }
     // const authorization = req.getHeader("authorization");
     const user = await db.user.findFirst();
-    jwt.verify(authorization, process.env.SECRET);
-    if (user.token !== authorization) {
+    const clientUser = jwt.verify(authorization, process.env.SECRET);
+    if (typeof clientUser === "string") {
+      throw new Error("Incorret Auth");
+    }
+    const test =
+      clientUser.username === user.username &&
+      clientUser.pwHash === user.pwHash &&
+      clientUser.lastLogin === user.lastLogin.toJSON();
+    if (!test) {
       throw new Error("Unverified");
     }
     next(req, res);
   } catch (error) {
     console.error(error);
-    res.status(500).json(error);
+    res.status(500).json(error.message);
   }
 };
 
