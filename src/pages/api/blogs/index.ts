@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { Blog, PrismaClient } from ".prisma/client";
 import { verify } from "../auth";
 import slugify from "slugify";
+import { Verified } from "@mui/icons-material";
 
 const db = new PrismaClient();
 
@@ -28,8 +29,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       await getAll(res);
       break;
     case "POST":
-      await verify(req, res);
-      await create(req, res);
+      const verified = await verify(req, res);
+      if (verified) {
+        await create(req, res);
+      }
       break;
     default:
       res.status(405).end();
