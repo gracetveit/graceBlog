@@ -20,7 +20,7 @@ export const fetchBlog = (date, slug) => async (dispatch) => {
   }
 };
 
-export const CreateBlog = (blog: Blog) => async (dispatch) => {
+export const createBlog = (blog: Partial<Blog>) => async (dispatch) => {
   try {
     const { data } = await axios({
       method: "POST",
