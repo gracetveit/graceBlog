@@ -24,7 +24,7 @@ export default () => {
 
   return (
     <div>
-      <p>{"content" in blog ? blog.title : ""}</p>
+      <p>{"content" in blog ? blog.content : ""}</p>
     </div>
   );
 };
