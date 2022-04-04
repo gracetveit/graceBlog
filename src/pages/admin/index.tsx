@@ -1,26 +1,23 @@
-import { CircularProgress } from "@mui/material";
+import { useSelect } from "@mui/base";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AdminView from "../../components/AdminView";
-import Login from "../../components/Login";
+import AuthCheck from "../../components/AuthCheck";
+import BlogList from "../../components/BlogList";
 import { RootState } from "../../store";
-import { verify } from "../../store/auth";
+import { fetchBlogs } from "../../store/allBlogs";
+import Blogs from "../blogs";
 
 export default () => {
-  const isLoggedIn = useSelector((state: RootState) => state.auth);
+  const blogs = useSelector((state: RootState) => state.allBlogs);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isLoggedIn !== true) {
-      dispatch(verify());
-    }
+    dispatch(fetchBlogs());
   }, [dispatch]);
 
-  const hasLoaded = isLoggedIn ? <AdminView /> : <Login />;
-
   return (
-    <div>
-      {typeof isLoggedIn === "string" ? <CircularProgress /> : hasLoaded}
-    </div>
+    <AuthCheck>
+      <BlogList blogs={blogs} isAdmin />
+    </AuthCheck>
   );
 };
