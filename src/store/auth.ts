@@ -1,10 +1,16 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
+export enum Status {
+  True,
+  False,
+  Pending,
+}
+
 // Constants
 const SET_STATUS = "SET_STATUS";
 // Actions
-const setStatus = (status: Boolean) => ({
+const setStatus = (status: Status) => ({
   type: SET_STATUS,
   status,
 });
@@ -22,7 +28,7 @@ export const login =
         },
       });
       Cookies.set("TOKEN", data);
-      dispatch(setStatus(true));
+      dispatch(setStatus(Status.True));
     } catch (error) {
       console.error(error);
       dispatch(logout());
@@ -33,7 +39,7 @@ export const verify = () => async (dispatch) => {
   try {
     const token = Cookies.get("TOKEN");
     if (!token) {
-      dispatch(setStatus(false));
+      dispatch(setStatus(Status.False));
       return;
     }
     const { data } = await axios({
@@ -43,7 +49,7 @@ export const verify = () => async (dispatch) => {
         authorization: Cookies.get("TOKEN"),
       },
     });
-    dispatch(setStatus(data));
+    dispatch(setStatus(Status.True));
   } catch (error) {
     console.error(error);
     dispatch(logout());
@@ -54,18 +60,15 @@ export const logout = () => async (dispatch) => {
   try {
     Cookies.remove("TOKEN");
     await axios.delete("/api/auth");
-    dispatch(setStatus(false));
+    dispatch(setStatus(Status.False));
   } catch (error) {
     console.error(error);
-    dispatch(setStatus(false));
+    dispatch(setStatus(Status.False));
   }
 };
 
 // Reducer
-export default (
-  state: Boolean | string = "Pending",
-  action
-): Boolean | string => {
+export default (state: Status = Status.Pending, action): Status => {
   switch (action.type) {
     case SET_STATUS:
       return action.status;
