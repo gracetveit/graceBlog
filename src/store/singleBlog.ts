@@ -38,7 +38,7 @@ export const createBlog = (blog: Partial<Blog>) => async (dispatch) => {
 };
 
 // Reducer
-export default (state: Blog | {} = {}, action): Blog | {} => {
+export default (state: Partial<Blog> = {}, action): Partial<Blog> => {
   switch (action.type) {
     case SET_BLOG:
       return action.blog;
