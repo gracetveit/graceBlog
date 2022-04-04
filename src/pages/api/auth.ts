@@ -68,9 +68,11 @@ export const verify = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!test) {
       throw new Error("Unverified");
     }
+    return true;
   } catch (error) {
     console.error(error);
     res.status(500).json(error.message);
+    return false;
   }
 };
 
@@ -81,8 +83,10 @@ const verifyRoute = (req: NextApiRequest, res: NextApiResponse) => {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "GET":
-      await verify(req, res);
-      await verifyRoute(req, res);
+      const verified = await verify(req, res);
+      if (verified) {
+        await verifyRoute(req, res);
+      }
       break;
     case "POST":
       await login(req, res);
