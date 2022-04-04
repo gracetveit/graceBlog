@@ -49,11 +49,7 @@ const logout = async (res: NextApiResponse) => {
   }
 };
 
-export const verify = async (
-  req: NextApiRequest,
-  res: NextApiResponse,
-  next: NextApiHandler
-) => {
+export const verify = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { authorization } = req.headers;
     if (authorization === "undefined" || !authorization) {
@@ -72,7 +68,6 @@ export const verify = async (
     if (!test) {
       throw new Error("Unverified");
     }
-    next(req, res);
   } catch (error) {
     console.error(error);
     res.status(500).json(error.message);
@@ -86,7 +81,8 @@ const verifyRoute = (req: NextApiRequest, res: NextApiResponse) => {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "GET":
-      await verify(req, res, verifyRoute);
+      await verify(req, res);
+      await verifyRoute(req, res);
       break;
     case "POST":
       await login(req, res);
