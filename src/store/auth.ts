@@ -2,9 +2,9 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 export enum Status {
-  True,
-  False,
-  Pending,
+  True = "TRUE",
+  False = "FALSE",
+  Pending = "PENDING",
 }
 
 // Constants
