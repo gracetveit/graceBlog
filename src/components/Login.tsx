@@ -10,7 +10,7 @@ export default () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newUserInfo = { [e.target.name]: e.target.value };
     setUser({ ...user, ...newUserInfo });
   };
@@ -25,11 +25,13 @@ export default () => {
     <Box
       component="form"
       sx={{
-        "& > :not(style)": { m: 1, width: "25ch" },
+        "& > :not(style)": { m: 1 },
       }}
       noValidate
       autoComplete="off"
       onSubmit={handleSubmit}
+      display="flex"
+      flexDirection="column"
     >
       <TextField
         label="username"
@@ -42,6 +44,7 @@ export default () => {
         id="password"
         onChange={handleChange}
         name="password"
+        type="password"
       />
       <Button variant="contained" type="submit">
         Log In
