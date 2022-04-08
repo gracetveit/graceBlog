@@ -1,13 +1,9 @@
 import Layout from "../components/Layout";
 import store from "../store";
 import { Provider } from "react-redux";
-import {
-  Container,
-  createTheme,
-  CssBaseline,
-  ThemeProvider,
-} from "@mui/material";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { Box } from "@mui/system";
+import "../../styles.css";
 
 export default ({ Component, pageProps }) => {
   const theme = createTheme({
