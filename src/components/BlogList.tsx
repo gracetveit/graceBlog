@@ -1,4 +1,5 @@
 import { Blog } from ".prisma/client";
+import { List, ListItem } from "@mui/material";
 import BlogListItem from "./BlogListItem";
 
 type BlogListProps = {
@@ -8,10 +9,12 @@ type BlogListProps = {
 
 export default ({ blogs, isAdmin }: BlogListProps) => {
   return (
-    <ul>
+    <List>
       {blogs.map((blog) => (
-        <BlogListItem blog={blog} isAdmin={isAdmin} key={blog.title} />
+        <ListItem key={blog.title}>
+          <BlogListItem blog={blog} isAdmin={isAdmin} />
+        </ListItem>
       ))}
-    </ul>
+    </List>
   );
 };
