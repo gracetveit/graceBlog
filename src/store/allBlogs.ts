@@ -1,5 +1,6 @@
 import { Blog } from ".prisma/client";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 // Constants
 const SET_BLOGS = "SET_BLOGS";
@@ -15,9 +16,6 @@ const removeBlogs = (slug) => ({
   type: REMOVE_BLOGS,
   slug,
 });
-
-import { Dispatch } from "react";
-
 interface clientBlog extends Blog {
   date: string;
 }
@@ -36,10 +34,16 @@ export const fetchBlogs = () => async (dispatch) => {
   }
 };
 
-export const deleteBlogs = (blog: Blog) => async (dispatch) => {
+export const deleteBlog = (blog: Blog) => async (dispatch) => {
   const date = (blog.createdAt as unknown as string).split("T")[0];
   try {
-    await axios.delete(`/api/blogs/${date}/${blog.slug}`);
+    await axios({
+      method: "DELETE",
+      url: `/api/blogs/${date}/${blog.slug}`,
+      headers: {
+        authorization: Cookies.get("TOKEN"),
+      },
+    });
     dispatch(removeBlogs(blog.slug));
   } catch (error) {
     console.error(error);
@@ -52,11 +56,12 @@ export default (state: clientBlog[] = [], action): clientBlog[] => {
     case SET_BLOGS:
       return action.blogs;
     case REMOVE_BLOGS:
-      return state.map((blog) => {
-        if (blog.slug !== action.slug) {
-          return blog;
+      return state.reduce((acc, cur) => {
+        if (cur.slug === action.slug) {
+          return acc;
         }
-      });
+        return [...acc, cur];
+      }, []);
     default:
       return state;
   }
