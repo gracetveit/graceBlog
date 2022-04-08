@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import BlogRead from "../../../components/BlogRead";
 import { RootState } from "../../../store";
 import { fetchBlog } from "../../../store/singleBlog";
 
@@ -22,9 +23,5 @@ export default () => {
     }
   }, [blog]);
 
-  return (
-    <div>
-      <p>{"content" in blog ? blog.content : ""}</p>
-    </div>
-  );
+  return <div>{"content" in blog ? <BlogRead blog={blog} /> : <></>}</div>;
 };
