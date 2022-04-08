@@ -3,6 +3,8 @@ import { Button, ButtonBase, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { deleteBlog } from "../store/allBlogs";
 
 type BlogListItemProps = {
   blog: Blog;
@@ -11,11 +13,18 @@ type BlogListItemProps = {
 
 export default ({ blog, isAdmin }: BlogListItemProps) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const date = (blog.createdAt as unknown as string).split("T")[0];
   const link = !isAdmin
     ? `/blogs/${date}/${blog.slug}`
     : `/admin/${date}/${blog.slug}`;
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    dispatch(deleteBlog(blog));
+  };
+
   return (
     <ButtonBase
       sx={{ flexGrow: 1, display: "flex" }}
@@ -33,10 +42,7 @@ export default ({ blog, isAdmin }: BlogListItemProps) => {
               variant="contained"
               color="error"
               sx={{ height: "fit-content" }}
-              onClick={(e) => {
-                e.stopPropagation();
-                console.log("test");
-              }}
+              onClick={handleDelete}
             >
               Delete
             </Button>
