@@ -1,10 +1,9 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from ".prisma/client";
+import db from "../../prisma/client";
 import * as argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 
-const db = new PrismaClient();
 
 const login = async (req: NextApiRequest, res: NextApiResponse) => {
   const { username, password } = req.body;

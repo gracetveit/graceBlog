@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Blog, PrismaClient } from ".prisma/client";
+import { Blog } from ".prisma/client";
+import db from "../../../prisma/client";
 import { verify } from "../auth";
 import slugify from "slugify";
 import { Verified } from "@mui/icons-material";
 
-const db = new PrismaClient();
 
 const getAll = async (res: NextApiResponse) => {
   const blogs = await db.blog.findMany();

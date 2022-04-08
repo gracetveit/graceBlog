@@ -1,9 +1,6 @@
-import { PrismaClient } from ".prisma/client";
-import { Verified } from "@mui/icons-material";
 import { NextApiRequest, NextApiResponse } from "next";
 import { verify } from "../../auth";
-
-const db = new PrismaClient();
+import db from "../../../../prisma/client";
 
 type BlogParams = {
   slug: string;
