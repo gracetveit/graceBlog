@@ -27,7 +27,7 @@ export default ({ blog, isAdmin }: BlogListItemProps) => {
 
   return (
     <ButtonBase
-      sx={{ flexGrow: 1, display: "flex" }}
+      sx={{ flexGrow: 1, display: "flex", width: "900px", maxWidth: "90vw" }}
       onClick={() => {
         router.push(link);
       }}
