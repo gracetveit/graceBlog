@@ -7,7 +7,7 @@ import { Verified } from "@mui/icons-material";
 
 
 const getAll = async (res: NextApiResponse) => {
-  const blogs = await db.blog.findMany();
+  const blogs = await db.blog.findMany({ orderBy: { createdAt: "desc" } });
   res.status(200).json(blogs);
 };
 
