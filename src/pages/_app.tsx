@@ -17,18 +17,17 @@ export default ({ Component, pageProps }) => {
       },
     },
     typography: {
+      allVariants: {
+        color: "white",
+      },
       h1: {
         fontFamily: ["Exo", "sans-serif"].join(","),
         fontSize: 25,
-        color: "white",
       },
       subtitle1: {
         contSize: 18,
-        color: "white",
       },
-      body1: {
-        color: "white",
-      },
+      body1: {},
     },
   });
 
