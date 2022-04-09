@@ -13,12 +13,12 @@ export default ({ method, thunk }) => {
   const oldBlog = useSelector((state: RootState) => state.singleBlog);
   const dispatch = useDispatch();
   const router = useRouter();
+  const { date, slug } = router.query;
 
   useEffect(() => {
     if (method !== "PUT") {
       return;
     }
-    const { date, slug } = router.query;
     dispatch(fetchBlog(date, slug));
     if (!("content" in oldBlog)) {
       return;
@@ -49,6 +49,14 @@ export default ({ method, thunk }) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    switch (method) {
+      case "POST":
+        dispatch(thunk(blog));
+        break;
+      case "PUT":
+        dispatch(thunk({ ...blog, date, slug }));
+        break;
+    }
     dispatch(thunk(blog));
     setSubmitStatus(true);
   };
@@ -61,6 +69,10 @@ export default ({ method, thunk }) => {
       display="flex"
       flexDirection="column"
       onSubmit={handleSubmit}
+      width="1200px"
+      maxWidth="90vw"
+      padding="20px"
+      gap="10px"
     >
       <TextField
         label="Title"
@@ -79,7 +91,7 @@ export default ({ method, thunk }) => {
         value={blog.content}
       />
       <Button variant="contained" type="submit">
-        Post New Blog
+        {method === "PUT" ? "Update Blog" : "Post New Blog"}
       </Button>
     </Box>
   );
