@@ -3,7 +3,6 @@ import { Blog } from ".prisma/client";
 import db from "../../../prisma/client";
 import { verify } from "../auth";
 import slugify from "slugify";
-import { Verified } from "@mui/icons-material";
 
 
 const getAll = async (res: NextApiResponse) => {
