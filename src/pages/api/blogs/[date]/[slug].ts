@@ -3,12 +3,6 @@ import { verify } from "../../auth";
 import db from "../../../../prisma/client";
 import { Blog } from ".prisma/client";
 
-type BlogParams = {
-  slug: string;
-  gte: Date;
-  lt: Date;
-};
-
 const getParams = async (
   req: NextApiRequest,
   res: NextApiResponse
@@ -57,12 +51,14 @@ const deleteBlog = async ({ createdAt, slug }: Blog, res: NextApiResponse) => {
 };
 
 const updateBlog = async (
+  // For some reason this throws an error (despite using the same pattern as
+  // delete, which does *not* throw an error), but it otherwise works as intended
   { slug, createdAt }: Blog,
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
   try {
-    const blog: Blog = req.body;
+    const newBlog: Blog = req.body;
     const updatedBlog = await db.blog.update({
       where: {
         slug_createdAt: {
@@ -70,7 +66,7 @@ const updateBlog = async (
           slug,
         },
       },
-      data: blog,
+      data: newBlog,
     });
     res.json(updatedBlog);
   } catch (error) {
@@ -81,18 +77,20 @@ const updateBlog = async (
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const blog = await getParams(req, res);
+  let verified: boolean;
   switch (req.method) {
     case "GET":
       await getSingle(blog, res);
       break;
     case "DELETE":
-      const verified = await verify(req, res);
+      verified = await verify(req, res);
       if (verified) {
         await deleteBlog(blog, res);
       }
       break;
     case "PUT":
-      if (await verify(req, res)) {
+      verified = await verify(req, res);
+      if (verified) {
         await updateBlog(blog, req, res);
       }
       break;
