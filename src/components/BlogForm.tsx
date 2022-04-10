@@ -20,10 +20,6 @@ export default ({ method, thunk }) => {
       return;
     }
     dispatch(fetchBlog(date, slug));
-    if (!("content" in oldBlog)) {
-      return;
-    }
-    setBlog({ title: oldBlog.title, content: oldBlog.content });
   }, [dispatch]);
 
   useEffect(() => {
