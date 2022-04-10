@@ -8,14 +8,14 @@ const post = async () => {
   try {
     await db.blog.deleteMany();
 
-    await db.blog.create({
-      data: {
-        title: "Test",
-        slug: "test",
-        content: "testing",
-      },
-    });
-    console.log("Blogs created!");
+    // await db.blog.create({
+    //   data: {
+    //     title: "Test",
+    //     slug: "test",
+    //     content: "testing",
+    //   },
+    // });
+    // console.log("Blogs created!");
   } catch (error) {
     console.error(error);
   }
