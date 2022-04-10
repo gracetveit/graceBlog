@@ -9,8 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prisma:build": "prisma migrate deploy && prisma db seed",
-    "heroku:start": "npm run prisma:build && next build && next start"
+    "heroku:start": "prisma migrate deploy && next build"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma",
