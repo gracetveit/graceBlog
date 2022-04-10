@@ -4,53 +4,34 @@
 
 A simple Blog app written with NextJS and Prisma
 
-<!-- Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
+[Link to site](https://graceblog.herokuapp.com/)
 
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn? -->
+## API
 
-## Todo
+### Blogs
 
-- [ ] 
+Blogs are organized in the following format:
 
-<!-- ## Table of Contents (Optional)
+```json
+{
+  "title": "Blog Title",
+  "createdAt": "20222022-04-10T19:31:23.350Z",
+  "updatedAt": "2022-04-10T19:31:23.350Z",
+  "content": "Lorem Ipsum...",
+  "slug": "blog-title"
+}
+```
 
-If your README is long, add a table of contents to make it easy for users to find what they need.
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Credits](#credits)
-- [License](#license) -->
-
-<!-- ## Installation
-
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running. -->
-
-<!-- ## Usage
-
-Provide instructions and examples for use. Include screenshots as needed.
-
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
-
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ``` -->
-
-<!-- ## Credits
-
-List your collaborators, if any, with links to their GitHub profiles.
-
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
-
-If you followed tutorials, include links to those here as well. -->
+- `GET:/api/blogs`
+  Returns a list of all blogs
+- `GET:/api/blogs/[date]/[slug]`
+  Returns a single blog item
 
 ## License
 
 The content of this project itself is licensed under the
 [Creative Commons Attribution 3.0](https://creativecommons.org/licenses/by/3.0/)
-Unported license, and the underlying source code used to format and display that content is licensed under the 
+Unported license, and the underlying source code used to format and display that content is licensed under the
 [MIT](https://choosealicense.com/licenses/mit/)
 license.
 
