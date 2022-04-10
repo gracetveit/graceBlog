@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import BlogRead from "../../../components/BlogRead";
 import { RootState } from "../../../store";
 import { fetchBlog } from "../../../store/singleBlog";
 
@@ -16,9 +17,11 @@ export default () => {
     }
   }, [router]);
 
-  return (
-    <div>
-      <p>{"content" in blog ? blog.title : ""}</p>
-    </div>
-  );
+  useEffect(() => {
+    if ("message" in blog) {
+      router.push("/404");
+    }
+  }, [blog]);
+
+  return <div>{"content" in blog ? <BlogRead blog={blog} /> : <></>}</div>;
 };
