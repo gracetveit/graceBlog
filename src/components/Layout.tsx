@@ -1,3 +1,4 @@
+import Footer from "./Footer";
 import NavBar from "./NavBar";
 
 export default ({ children }) => {
@@ -5,6 +6,7 @@ export default ({ children }) => {
     <>
       <NavBar></NavBar>
       <main>{children}</main>
+      <Footer />
     </>
   );
 };
