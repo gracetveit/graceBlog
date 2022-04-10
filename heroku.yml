@@ -5,9 +5,9 @@ setup:
 build:
   docker:
     web: Dockerfile
-release:
-  command:
-    - npx prisma migrate deploy
-  image: web
+# release:
+#   command:
+#     - npx prisma migrate deploy
+#   image: web
 run:
-  web: npm run start
+  web: npm run heroku:start
