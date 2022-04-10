@@ -7,7 +7,7 @@ build:
     web: Dockerfile
 release:
   command:
-    - npm run heroku:start
+    - npm run heroku:release
   image: web
 run:
-  web: npm run start
+  web: npm run heroku:run
