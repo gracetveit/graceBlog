@@ -18,5 +18,28 @@ pre {
 }
 
 main {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.hljs-keyword {
+  color: rgb(68, 118, 255)
+}
+.function_{
+  color: rgb(175, 148, 60)
+}
+.class_{
+  color: rgb(23, 189, 125)
+}
+.hljs-string {
+  color: orange
+}
+.hljs {
+  color: lightblue
+}
+code {
+  /* col */
+}
+pre {
+  background-color: #242326;
+  padding: 10px
 }
