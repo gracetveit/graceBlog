@@ -1,6 +1,6 @@
 pre {
   max-width: 85vw;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 /* @media only screen and (min-width: 1200px){
@@ -15,4 +15,28 @@ pre {
 
 .css-u36398 {
   color: white
+}
+
+main {
+  margin-bottom: 30px;
+}
+
+.hljs-keyword {
+  color: rgb(68, 118, 255)
+}
+.function_{
+  color: rgb(175, 148, 60)
+}
+.class_{
+  color: rgb(23, 189, 125)
+}
+.hljs-string {
+  color: orange
+}
+.hljs {
+  color: lightblue
+}
+pre {
+  background-color: #242326;
+  padding: 10px
 }

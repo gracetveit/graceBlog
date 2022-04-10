@@ -1,6 +1,7 @@
 import { Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import ReactMarkdown from "react-markdown";
+import rehypeHighlight from "rehype-highlight";
 
 export default ({ blog }) => {
   const date = (blog.createdAt as unknown as string).split("T")[0];
@@ -21,8 +22,10 @@ export default ({ blog }) => {
       </Paper>
       <Paper sx={{ padding: "10px" }}>
         <Box>
-          <Typography align="left">
-            <ReactMarkdown>{blog.content}</ReactMarkdown>
+          <Typography align="left" component="div">
+            <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+              {blog.content}
+            </ReactMarkdown>
           </Typography>
         </Box>
       </Paper>
