@@ -29,6 +29,7 @@ export default () => {
   const pages = [
     { name: "Home", route: "/" },
     { name: "Blogs", route: "/blogs" },
+    { name: "Contact", route: "/contact"}
   ];
 
   return (
