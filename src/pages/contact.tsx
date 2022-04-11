@@ -1,25 +1,13 @@
 import { Button, List, ListItem, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useRouter } from 'next/router';
-import { GetStaticProps } from 'next';
-import { config } from 'dotenv';
 
-export const getStaticProps: GetStaticProps = () => {
-  config();
-  const email = process.env.EMAIL;
-  return {
-    props: {
-      email,
-    },
-  };
-};
-
-export default ({ email }) => {
+export default () => {
   const router = useRouter();
   const contact = [
     { name: 'Github', link: 'https://github.com/gracetveit' },
     { name: 'LinkedIn', link: 'https://www.linkedin.com/in/gracetveit/' },
-    { name: 'Email', link: `mailto:${email}` },
+    { name: 'Email', link: `mailto:grace.tveit@gmail.com` },
   ];
   return (
     <Box margin="20px">
