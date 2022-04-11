@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku:release": "prisma migrate deploy && next build",
+    "heroku:build": "prisma generate && next build",
+    "heroku:release": "prisma migrate deploy",
     "heroku:run": "next start"
   },
   "prisma": {
