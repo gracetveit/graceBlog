@@ -5,8 +5,6 @@ setup:
 build:
   docker:
     web: Dockerfile
-  config:
-    EMAIL: grace.tveit@gmail.com
 release:
   command:
     - npm run heroku:release
